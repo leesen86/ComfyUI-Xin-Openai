@@ -1,25 +1,4 @@
-# torch 由 ComfyUI 提供，勿用 pip 覆盖以免破坏 CUDA 构建。
-#
-# 便携版启动脚本使用: python_embeded\python.exe -s main.py
-# -s 会禁用「用户级」site-packages（如 %APPDATA%\Python\Python312\site-packages），
-# 若 pip 把包装进用户目录，ComfyUI 内会报 No module named 'openai'。
-#
-
-# 请在 ComfyUI_windows_portable 根目录用 PowerShell 安装到嵌入式环境：
-#   cd /d D:\ComfyUI_windows_portable
-#   $env:PYTHONNOUSERSITE='1'
-#   .\python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-Xin-Openai\requirements.txt
-# 一行写法：
-#   $env:PYTHONNOUSERSITE='1'; .\python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-Xin-Openai\requirements.txt
-# 若仍提示已在用户目录满足依赖，追加：--force-reinstall
-#
-# 或在 CMD（命令提示符）中先进入便携版根目录再安装（路径按你本机修改）：
-#   cd /d D:\ComfyUI_windows_portable
-#   set PYTHONNOUSERSITE=1
-#   python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-Xin-Openai\requirements.txt
-# 一行写法：
-#   set PYTHONNOUSERSITE=1 && python_embeded\python.exe -m pip install -r ComfyUI\custom_nodes\ComfyUI-Xin-Openai\requirements.txt
-# 若仍被用户目录“已满足”误导，追加：--force-reinstall
+# 安装说明见 readme.md
 openai>=1.0.0
 numpy>=1.19.0
 Pillow>=9.0.0
