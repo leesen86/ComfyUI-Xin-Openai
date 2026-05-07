@@ -2,18 +2,34 @@
 
 面向 **OpenAI 兼容接口**（`/v1/images/*`、`/v1/chat/completions`）的 ComfyUI 自定义节点，在同一界面内切换「文生图 / 图生图 / 图编辑」与「多模态对话（识图）」两种能力。
 
+## 示例图
+
+以下为仓库内 [`example/example.png`](example/example.png) 的展示（本地用 IDE 打开本 `readme.md` 时也会渲染；若网页端不显示，请直接打开该图片文件）。
+
+<p align="center">
+  <img src="./example/example.png" alt="images 模式：双 Load Image 接 image1、image2，Xin OpenAI 节点与 Preview 工作流示例" width="100%" />
+</p>
+
 ---
 
 ## 为什么开发这个组件
 
 本人做设计的,对接企业,有很多生图要求,使用 runninghub.cn 的话经常排队,价格最低也比第三平台贵很多
 
-我现在用的是 [`uclaude.cc`](https://uclaude.cc/) 这个大模型平台使用GPT-IMAGE-2生一个图只要几分钱,比 runninghub 便宜多了, 支持API,适合企业批量作图~
+我现在用的是 [`uclaude.cc`](https://uclaude.cc/) 这个大模型平台使用GPT-IMAGE-2生一个图才要几分钱,比 runninghub 便宜多了, 支持API,适合企业批量作图~
 
 
 ## 节点入口（功能相同）
 
 在 ComfyUI 中添加 **`Xin OpenAI - Image/Chat`**（内部注册名：`OpenAPIImage` / `OpenAPIVisionChat`，任选其一即可）。
+
+---
+
+## 实例说明（对应上方示例图）
+
+上图工作流为 **`api_mode` = `images`**：左侧两张 **Load Image** 分别接入 **`image1`**（杯子）与 **`image2`**（人物），**prompt** 为「图2的角色，拿着图1的豆浆杯」，经 **`images/edits`** 多图编辑后，右侧 **Preview Image** 为合成结果（截图中网关为 `codeagent.cloud`，模型 `gpt-image-2`，以你实际服务商为准）。
+
+可将 [`example/workflow.json`](example/workflow.json) 拖入 ComfyUI 或从菜单导入以复现该工作流。
 
 ---
 
