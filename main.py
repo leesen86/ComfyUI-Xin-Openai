@@ -5,13 +5,14 @@ OpenAI 兼容节点（与仓库 test.py 用法对齐）：
 - `chat_completions`：`/v1/chat/completions` 多模态（识图请换支持 vision 的模型，勿用 gpt-image-2）
 
 输出：image、text、request、response（request 为等价 curl 预览，密钥占位；大图 base64 已截断）
-可选参考图：image1～image10（最多 10 张）；chat 多图入消息；images 编辑模式按序上传多图（依网关与模型能力）。
+可选参考图：参考图1～参考图10（最多 10 张）；chat 多图入消息；images 编辑模式按序上传多图（依网关与模型能力）。
 """
 
 import base64
 import io
 import json
 import os
+import random
 import shlex
 import time
 import traceback
@@ -27,6 +28,20 @@ from openai import APIStatusError, OpenAI
 
 _RETRYABLE_HTTP_STATUS = frozenset({408, 429, 500, 502, 503, 504})
 _MAX_TRANSIENT_RETRIES = 4
+
+# 随机种：最多 16 位十进制（与 Comfy 界面长度一致）；勿用输入名 seed，以免前端自动挂「生成后控制」
+_SEED_INT_MAX = 10**16 - 1
+
+_UI_API_MODE_TO_INTERNAL: Dict[str, str] = {
+    "图像生成": "images",
+    "多模态对话": "chat_completions",
+    "images": "images",
+    "chat_completions": "chat_completions",
+}
+
+
+def _coerce_api_mode(ui: str) -> str:
+    return _UI_API_MODE_TO_INTERNAL.get((ui or "").strip(), "images")
 
 
 def _call_with_transient_retry(fn):
@@ -142,7 +157,7 @@ def _passthrough_or_blank(images: Any) -> torch.Tensor:
 def _collect_optional_images(
     *slots: Optional[torch.Tensor],
 ) -> List[torch.Tensor]:
-    """按 image1、image2…顺序收集非空 IMAGE（每槽取 batch 首张）。"""
+    """按槽位顺序收集非空 IMAGE（每槽取 batch 首张）。"""
     out: List[torch.Tensor] = []
     for t in slots:
         if t is not None and isinstance(t, torch.Tensor) and t.numel() > 0:
@@ -379,49 +394,60 @@ def _decode_image_tensor(b64: Optional[str], url: Optional[str]) -> torch.Tensor
 class OpenAPIImage:
     """
     OpenAI 兼容节点。
-    - api_mode=`images`：官方 Images API（与其它兼容 `/v1/images/*` 的网关）
-    - api_mode=`chat_completions`：官方 Chat Completions（多模态图+文，与其它兼容 `/v1/chat/completions` 的网关）
-    参考图使用可选槽 image1～image10（最多 10 张）；chat 模式多张图依次写入消息；
-    images 模式走 images.edit 时按顺序上传全部参考图（SDK：image 可为多文件序列）。
+    - 模式为图像生成：官方 Images API（与其它兼容 `/v1/images/*` 的网关）
+    - 模式为多模态对话：官方 Chat Completions（多模态图+文，与其它兼容 `/v1/chat/completions` 的网关）
+    参考图使用可选槽 参考图1～参考图10（最多 10 张）；多模态对话多张图依次写入消息；
+    图像生成走 images.edit 时按顺序上传全部参考图（SDK：image 可为多文件序列）。
+    随机种支持 ComfyUI「生成后控制」（与 KSampler 相同，仅影响排队后的随机种数值，未传给 API）。
     """
 
     @classmethod
     def INPUT_TYPES(cls) -> Dict[str, Any]:
         return {
             "required": {
-                "prompt": (
+                "提示词": (
                     "STRING",
                     {
                         "multiline": True,
                         "default": "一只卡通海獭，扁平插画，白底",
                     },
                 ),
-                "api_mode": (
-                    ["images", "chat_completions"],
-                    {"default": "images"},
+                "随机种": (
+                    "INT",
+                    {
+                        "default": random.randint(0, _SEED_INT_MAX),
+                        "min": 0,
+                        "max": _SEED_INT_MAX,
+                        "control_after_generate": True,
+                        "tooltip": "随机种（最多 16 位十进制；未传给 OpenAI API）。下方「生成后控制」由 ComfyUI 在排队后自动改随机种。",
+                    },
                 ),
-                "base_url": (
+                "API模式": (
+                    ["图像生成", "多模态对话"],
+                    {"default": "图像生成"},
+                ),
+                "接口地址": (
                     "STRING",
                     {
                         "default": "https://uclaude.cc/v1",
                         "placeholder": "请输入模型服务商的API地址",
                     },
                 ),
-                "api_key": (
+                "密钥": (
                     "STRING",
                     {
                         "default": "",
                         "placeholder": "请输入模型服务商的API密钥",
                     },
                 ),
-                "model": (
+                "模型": (
                     "STRING",
                     {
                         "default": "gpt-image-2",
                         "placeholder": "请输入模型服务商的模型名称,例如：gpt-image-2",
                     },
                 ),
-                "size": (
+                "尺寸": (
                     [
                         "自动（auto）",
                         "1024x1024 - 1K（1:1方图）",
@@ -436,17 +462,17 @@ class OpenAPIImage:
                 ),
             },
             "optional": {
-                "image1": ("IMAGE",),
-                "image2": ("IMAGE",),
-                "image3": ("IMAGE",),
-                "image4": ("IMAGE",),
-                "image5": ("IMAGE",),
-                "image6": ("IMAGE",),
-                "image7": ("IMAGE",),
-                "image8": ("IMAGE",),
-                "image9": ("IMAGE",),
-                "image10": ("IMAGE",),
-                "quality": (
+                "参考图1": ("IMAGE",),
+                "参考图2": ("IMAGE",),
+                "参考图3": ("IMAGE",),
+                "参考图4": ("IMAGE",),
+                "参考图5": ("IMAGE",),
+                "参考图6": ("IMAGE",),
+                "参考图7": ("IMAGE",),
+                "参考图8": ("IMAGE",),
+                "参考图9": ("IMAGE",),
+                "参考图10": ("IMAGE",),
+                "质量": (
                     [
                         "自动（auto）",
                         "低（low）",
@@ -458,43 +484,66 @@ class OpenAPIImage:
             },
         }
 
+    @classmethod
+    def VALIDATE_INPUTS(cls, 密钥):
+        """排队前校验：无密钥且无环境变量时失败，前端可对「密钥」控件高亮（红框）。"""
+        if (密钥 or "").strip():
+            return True
+        if (os.getenv("OPENAI_API_KEY") or "").strip() or (os.getenv("ARK_API_KEY") or "").strip():
+            return True
+        return "请填写「密钥」，或设置环境变量 OPENAI_API_KEY / ARK_API_KEY"
+
     RETURN_TYPES = ("IMAGE", "STRING", "STRING", "STRING")
-    RETURN_NAMES = ("image", "text", "request", "response")
+    RETURN_NAMES = ("图片", "文本", "请求", "响应")
     OUTPUT_IS_LIST = (False, False, False, False)
     FUNCTION = "run"
     CATEGORY = "ComfyUI-Xin-Openai"
 
     def run(
         self,
-        prompt: str,
-        api_mode: str,
-        base_url: str,
-        api_key: str,
-        model: str,
-        size: str,
-        image1: Optional[torch.Tensor] = None,
-        image2: Optional[torch.Tensor] = None,
-        image3: Optional[torch.Tensor] = None,
-        image4: Optional[torch.Tensor] = None,
-        image5: Optional[torch.Tensor] = None,
-        image6: Optional[torch.Tensor] = None,
-        image7: Optional[torch.Tensor] = None,
-        image8: Optional[torch.Tensor] = None,
-        image9: Optional[torch.Tensor] = None,
-        image10: Optional[torch.Tensor] = None,
-        quality: str = "自动（auto）",
+        提示词: str,
+        API模式: str,
+        接口地址: str,
+        密钥: str,
+        模型: str,
+        尺寸: str,
+        随机种: int = 0,
+        参考图1: Optional[torch.Tensor] = None,
+        参考图2: Optional[torch.Tensor] = None,
+        参考图3: Optional[torch.Tensor] = None,
+        参考图4: Optional[torch.Tensor] = None,
+        参考图5: Optional[torch.Tensor] = None,
+        参考图6: Optional[torch.Tensor] = None,
+        参考图7: Optional[torch.Tensor] = None,
+        参考图8: Optional[torch.Tensor] = None,
+        参考图9: Optional[torch.Tensor] = None,
+        参考图10: Optional[torch.Tensor] = None,
+        质量: str = "自动（auto）",
     ):
+        prompt = 提示词
+        api_mode = _coerce_api_mode(API模式)
+        base_url = 接口地址
+        api_key = 密钥
+        model = 模型
+        size = 尺寸
+        quality = 质量
+        try:
+            _sn = 0 if 随机种 is None else int(随机种)
+        except (TypeError, ValueError):
+            _sn = 0
+        _ = max(0, min(_SEED_INT_MAX, _sn))
+
         ref_images = _collect_optional_images(
-            image1,
-            image2,
-            image3,
-            image4,
-            image5,
-            image6,
-            image7,
-            image8,
-            image9,
-            image10,
+            参考图1,
+            参考图2,
+            参考图3,
+            参考图4,
+            参考图5,
+            参考图6,
+            参考图7,
+            参考图8,
+            参考图9,
+            参考图10,
         )
         key = (api_key or "").strip() or os.getenv("OPENAI_API_KEY") or os.getenv(
             "ARK_API_KEY"
@@ -502,7 +551,7 @@ class OpenAPIImage:
         if not key:
             return _failed_run_outputs(
                 RuntimeError(
-                    "缺少 API Key：填写 api_key 或设置环境变量 OPENAI_API_KEY / ARK_API_KEY。"
+                    "缺少 API Key：填写「密钥」或设置环境变量 OPENAI_API_KEY / ARK_API_KEY。"
                 ),
                 "# 未发送请求：缺少 API Key。",
             )
@@ -510,15 +559,15 @@ class OpenAPIImage:
         url = _normalize_base_url((base_url or "").strip())
         if not url:
             return _failed_run_outputs(
-                RuntimeError("base_url 不能为空。"),
-                "# 未发送请求：base_url 为空。",
+                RuntimeError("接口地址不能为空。"),
+                "# 未发送请求：接口地址为空。",
             )
 
         mid = (model or "").strip()
         if not mid:
             return _failed_run_outputs(
-                RuntimeError("model 不能为空。"),
-                "# 未发送请求：model 为空。",
+                RuntimeError("模型不能为空。"),
+                "# 未发送请求：模型为空。",
             )
 
         client = OpenAI(base_url=url, api_key=key)
@@ -559,9 +608,9 @@ class OpenAPIImage:
         if not has_img and not (prompt or "").strip():
             return _failed_run_outputs(
                 RuntimeError(
-                    "chat 模式需要填写 prompt，或连接 image1～image10 至少一张图。"
+                    "chat 模式需要填写「提示词」，或连接「参考图1」～「参考图10」至少一张图。"
                 ),
-                "# chat/completions 未发送：缺少文本 prompt 与参考图。",
+                "# chat/completions 未发送：缺少文本提示词与参考图。",
             )
 
         payload = {"model": model_id, "messages": [{"role": "user", "content": content}]}
