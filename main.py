@@ -1,7 +1,7 @@
 """
 OpenAI 兼容节点（与仓库 test.py 用法对齐）：
 - `images`：`client.images.generate` / `images.edit`（同 test.py：先带 response_format=b64_json，失败再重试）
-  默认网关示例：https://uclaude.cc/v1 + gpt-image-2
+  默认网关示例：https://codeagent.cloud/v1 + gpt-image-2
 - `chat_completions`：`/v1/chat/completions` 多模态（识图请换支持 vision 的模型，勿用 gpt-image-2）
 
 输出：image、text、request、response（request 为等价 curl 预览，密钥占位；大图 base64 已截断）
@@ -429,7 +429,7 @@ class OpenAPIImage:
                 "接口地址": (
                     "STRING",
                     {
-                        "default": "https://uclaude.cc/v1",
+                        "default": "https://codeagent.cloud/v1",
                         "placeholder": "请输入模型服务商的API地址",
                     },
                 ),

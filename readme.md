@@ -7,7 +7,7 @@
 
 本人做设计的,对接企业,有很多生图要求,使用 runninghub.cn 的话经常排队,价格最低也比第三平台贵很多
 
-我现在用的是 [`uclaude.cc`](https://uclaude.cc/) 这个大模型平台使用GPT-IMAGE-2生一个图才要几分钱,比 runninghub 便宜多了, 支持API,适合企业批量作图~
+我现在用的是 [`codeagent.cloud`](https://codeagent.cloud/) 这个大模型平台使用GPT-IMAGE-2生一个图才要几分钱,比 runninghub 便宜多了, 支持API,适合企业批量作图~
 
 
 ## 示例图

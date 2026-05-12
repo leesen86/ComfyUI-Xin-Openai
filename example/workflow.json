@@ -1,211 +1,15 @@
 {
-  "id": "e82105e2-5bb2-4d9f-b98b-11ed1b7fc49b",
+  "id": "1b63eee2-c689-42b1-a746-528c4980ca6f",
   "revision": 0,
   "last_node_id": 14,
-  "last_link_id": 14,
+  "last_link_id": 10,
   "nodes": [
     {
-      "id": 4,
-      "type": "PreviewImage",
-      "pos": [
-        4394.444846690955,
-        1290.1203930491808
-      ],
-      "size": [
-        647.9133394396731,
-        726.7812166063572
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 12
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.19.1",
-        "Node name for S&R": "PreviewImage",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        }
-      },
-      "widgets_values": []
-    },
-    {
-      "id": 8,
+      "id": 7,
       "type": "LoadImage",
       "pos": [
-        3297.2764720330974,
-        1438.2697073706809
-      ],
-      "size": [
-        270,
-        314
-      ],
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            10
-          ]
-        },
-        {
-          "name": "MASK",
-          "type": "MASK",
-          "links": null
-        }
-      ],
-      "properties": {
-        "cnr_id": "comfy-core",
-        "ver": "0.19.1",
-        "Node name for S&R": "LoadImage",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        }
-      },
-      "widgets_values": [
-        "pasted/image.png",
-        "image"
-      ]
-    },
-    {
-      "id": 11,
-      "type": "OpenAPIImage",
-      "pos": [
-        3939.7994425251018,
-        1392.5816510229752
-      ],
-      "size": [
-        400,
-        412
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image1",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 10
-        },
-        {
-          "name": "image2",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": 13
-        },
-        {
-          "name": "image3",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "image4",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "image5",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "image6",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "image7",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "image8",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "image9",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        },
-        {
-          "name": "image10",
-          "shape": 7,
-          "type": "IMAGE",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "links": [
-            12
-          ]
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": []
-        },
-        {
-          "name": "request",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "response",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "OpenAPIImage",
-        "ue_properties": {
-          "widget_ue_connectable": {},
-          "input_ue_unconnectable": {},
-          "version": "7.5.2"
-        }
-      },
-      "widgets_values": [
-        "图2的角色，拿着图1的豆浆杯",
-        "images",
-        "https://uclaude.cc/v1",
-        "",
-        "gpt-image-2",
-        "1024x1536 - 1.5K（2:3竖图）",
-        "低（low）"
-      ]
-    },
-    {
-      "id": 13,
-      "type": "LoadImage",
-      "pos": [
-        3625.7119071322836,
-        1435.8329369241444
+        2939.037477354098,
+        2366.585880761909
       ],
       "size": [
         270,
@@ -213,14 +17,14 @@
       ],
       "flags": {},
       "order": 0,
-      "mode": 0,
+      "mode": 4,
       "inputs": [],
       "outputs": [
         {
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            13
+            5
           ]
         },
         {
@@ -230,9 +34,73 @@
         }
       ],
       "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "20260317-115127.png",
+        "image"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "PreviewImage",
+      "pos": [
+        3858.3930322512065,
+        2363.7972983770187
+      ],
+      "size": [
+        314.4829395445213,
+        439.31203373997323
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        2461.0264454149974,
+        2996.8233151776385
+      ],
+      "size": [
+        524.4185608947573,
+        735.048073638867
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage",
         "cnr_id": "comfy-core",
         "ver": "0.19.1",
-        "Node name for S&R": "LoadImage",
         "ue_properties": {
           "widget_ue_connectable": {},
           "input_ue_unconnectable": {},
@@ -240,54 +108,563 @@
         }
       },
       "widgets_values": [
-        "20260317-165128.png",
+        "ScreenShot_2026-05-08_180448_223.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        2929.0041749665215,
+        1798.1725218879153
+      ],
+      "size": [
+        270,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "20260317-115127.png",
+        "image"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "SaveImage",
+      "pos": [
+        4085.1575526217025,
+        3002.962080537851
+      ],
+      "size": [
+        582.9474396002961,
+        737.8584844642628
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 10
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "PreviewAny",
+      "pos": [
+        3802.9905425421457,
+        1819.3612625023839
+      ],
+      "size": [
+        381.23202990221034,
+        368.2168734083248
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 1,
+      "type": "OpenAPIImage",
+      "pos": [
+        3313.3566967066413,
+        1796.1996899939895
+      ],
+      "size": [
+        400,
+        460
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "参考图1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "参考图2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图10",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "图片",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "文本",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "请求",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "响应",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OpenAPIImage"
+      },
+      "widgets_values": [
+        "帮我看一下这幅图里有什么内容",
+        649521515231802,
+        "randomize",
+        "多模态对话",
+        "https://codeagent.cloud/v1",
+        "",
+        "gpt-5.5",
+        "自动（auto）",
+        "自动（auto）"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "OpenAPIImage",
+      "pos": [
+        3311.9174530907626,
+        2367.886026810972
+      ],
+      "size": [
+        400,
+        460
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "参考图1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 5
+        },
+        {
+          "name": "参考图2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图10",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "图片",
+          "type": "IMAGE",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "文本",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "请求",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "响应",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OpenAPIImage"
+      },
+      "widgets_values": [
+        "这是一个豆浆杯子，帮我生成多个使用多个场景的使用图 ",
+        730923866496554,
+        "randomize",
+        "图像生成",
+        "https://codeagent.cloud/v1",
+        "",
+        "gpt-image-2",
+        "2048x2048 - 2K（1:1方图）",
+        "自动（auto）"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "OpenAPIImage",
+      "pos": [
+        3652.8050506134077,
+        3012.2985098129598
+      ],
+      "size": [
+        400,
+        460
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "参考图1",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 8
+        },
+        {
+          "name": "参考图2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 9
+        },
+        {
+          "name": "参考图3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "参考图10",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "图片",
+          "type": "IMAGE",
+          "links": [
+            10
+          ]
+        },
+        {
+          "name": "文本",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "请求",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "响应",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OpenAPIImage"
+      },
+      "widgets_values": [
+        "图1的女人拿着图2的杯子",
+        984434844408757,
+        "randomize",
+        "图像生成",
+        "https://codeagent.cloud/v1",
+        "",
+        "gpt-image-2",
+        "自动（auto）",
+        "自动（auto）"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        3020.1300327263775,
+        3001.614378427506
+      ],
+      "size": [
+        612.658179416253,
+        727.5300948801239
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "a0a85849-dd85-4266-bbc8-18e00068dc4f.png",
         "image"
       ]
     }
   ],
   "links": [
     [
-      10,
-      8,
+      1,
+      2,
       0,
-      11,
+      1,
       0,
       "IMAGE"
     ],
     [
-      12,
-      11,
-      0,
+      3,
+      1,
+      1,
       4,
       0,
+      "STRING"
+    ],
+    [
+      5,
+      7,
+      0,
+      6,
+      0,
       "IMAGE"
     ],
     [
-      13,
+      6,
+      6,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      8,
+      10,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      9,
       13,
       0,
       11,
       1,
+      "IMAGE"
+    ],
+    [
+      10,
+      11,
+      0,
+      12,
+      0,
       "IMAGE"
     ]
   ],
   "groups": [],
   "config": {},
   "extra": {
-    "ue_links": [],
     "ds": {
-      "scale": 0.6922742513709884,
+      "scale": 0.8376518441589444,
       "offset": [
-        -2484.709476605013,
-        -982.4716979529899
+        -2261.753842801371,
+        -2505.6722501558183
       ]
     },
-    "links_added_by_ue": [],
-    "frontendVersion": "1.42.11",
-    "VHS_latentpreview": false,
-    "VHS_latentpreviewrate": 0,
-    "VHS_MetadataImage": true,
-    "VHS_KeepIntermediate": true
+    "frontendVersion": "1.42.15"
   },
   "version": 0.4
 }
